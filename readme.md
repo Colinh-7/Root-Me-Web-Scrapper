@@ -12,11 +12,11 @@ pip install requirements.txt
 
 Donner les droits au script :
 ```bash
-chmod u+x rootapi.py
+chmod u+x rootme.py
 ```
 Utilisation du script : 
 ```bash
-./rootapi.py
+./rootme.py
 ```
 
 
