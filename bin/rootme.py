@@ -1,10 +1,29 @@
 #!/bin/python3
 
-import csv
-import sys
+import csv, sys, time, re
 from urllib.request import urlopen, HTTPError
-from bs4 import BeautifulSoup    
+from bs4 import BeautifulSoup  
 
+def split_words(list):
+    # Liste des mois en français
+    month = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
+            "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
+
+    result = []
+    new = []
+    for temp in list:
+        done = False
+        for m in month:
+            if m in temp:
+                part= temp.split(m)
+                new.append(part[0])
+                new.append(m)
+                done = True
+                break
+        if not done:
+            new.append(temp)
+    return new
+            
 # CSV parsing
 def csv_parsing(file):
     users = []
@@ -31,7 +50,7 @@ def get_user_stats(userpage):
 
 # Get user's last challenges
 def get_last_challenges(userpage):
-    challenges = {}
+    challenges = []
     find = False
     challenge_section = None
 
@@ -40,20 +59,19 @@ def get_last_challenges(userpage):
         activity = section.find_all("h3")
         for a in activity:
             if a.get_text().find("Activité") > -1:
-                print("Activité récente trouvé.")
                 find = True
                 break
         if find :
             challenge_section = section
             break
     
-    # =========== A FAIRE ==================
+    if challenge_section != None :
+        challenge_section = challenge_section.find_all("li")
 
-    #row = section.find_all("ul")
-    #for line in row:
-        #array = line.get_text()#.split()
-        #print(array)
-    return
+        for line in challenge_section:
+            challenges.append(split_words(line.get_text().split()))
+
+    return challenges
 
 class User:
     def __init__(self, name):
@@ -63,6 +81,8 @@ class User:
             self.stats = get_user_stats(user_response)
             self.challenges = get_last_challenges(user_response)
         except HTTPError as e:
+            self.stats = {}
+            self.challenges = []
             print(f"{e}")
 
     def get_stats(self):
@@ -84,10 +104,9 @@ def main(args):
     users = {} 
     # Get data for all users
     for user in users_csv:
-        print(user)
         users[user] = User(user)
-        #print(users[user])
-
+        print(users[user])
+        time.sleep(2)
 
 if __name__ == "__main__":
     try:
