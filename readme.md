@@ -16,7 +16,11 @@ chmod u+x bin/rootme.py
 ```
 Utilisation du script : 
 ```bash
-./bin/rootme.py
+./bin/rootme.py <csv>
+```
+Exemple d'utilisation :
+```bash
+./bin/rootme.py /data/users.csv
 ```
 
 
