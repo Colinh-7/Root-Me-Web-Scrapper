@@ -10,7 +10,8 @@ pip install -r requirements.txt
 Grant permissions to the script:
 ```bash
 chmod u+x bin/rootme.py
-```#Using the script:
+```
+Using the script:
 ```bash
 ./bin/rootme.py <csv>
 ```
