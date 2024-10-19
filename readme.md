@@ -1,26 +1,21 @@
-# Root Me Web Scrapper
+## Root Me Web Scraper
 
-Ce script permet de récuperer des statistiques sur des utilisateurs Root Me
-
-## Installation
-
+This script allows you to retrieve statistics on Root Me users.
+# Installation
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
+# Usage
 
-## Utilisation
-
-Donner les droits au script :
+Grant permissions to the script:
 ```bash
 chmod u+x bin/rootme.py
-```
-Utilisation du script : 
+```#Using the script:
 ```bash
 ./bin/rootme.py <csv>
 ```
-Exemple d'utilisation :
+Example of usage:
 ```bash
 ./bin/rootme.py /data/users.csv
 ```
-
 
